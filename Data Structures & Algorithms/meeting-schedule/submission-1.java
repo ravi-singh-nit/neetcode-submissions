@@ -1,0 +1,34 @@
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     public int start, end;
+ *     public Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+
+class Solution {
+    public boolean canAttendMeetings(List<Interval> intervals) {
+        if(intervals.size()<=1)
+        return true;
+        Collections.sort(intervals,(a,b)->{
+            if(a.start!=b.start)
+            return a.start-b.start;
+
+            return a.end-b.end;
+        });
+
+        Interval prev=intervals.get(0);
+        int n=intervals.size();
+        for(int i=1;i<n;i++){
+            Interval curr=intervals.get(i);
+            if(prev.end>curr.start)
+            return false;
+            prev=curr;
+        }
+        return true;
+
+    }
+}
